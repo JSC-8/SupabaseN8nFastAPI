@@ -1,0 +1,27 @@
+<form id="leadForm">
+  <input type="text" id="nombre" placeholder="Nombre" required />
+  <input type="email" id="email" placeholder="Email" required />
+  <input type="text" id="empresa" placeholder="Empresa" />
+  <button type="submit">Registrar</button>
+</form>
+
+<script>
+  document.getElementById("leadForm").onsubmit = async (e) => {
+    e.preventDefault();
+    const params = new URLSearchParams({
+      nombre: document.getElementById("nombre").value,
+      email: document.getElementById("email").value,
+      empresa: document.getElementById("empresa").value,
+    });
+
+    const response = await fetch(
+      `http://127.0.0.1:8000/nuevo-lead/?${params}`,
+      {
+        method: "POST",
+      },
+    );
+
+    if (response.ok) alert("¡Lead enviado!");
+    else alert("Error");
+  };
+</script>

@@ -2,11 +2,13 @@ from fastapi import FastAPI, HTTPException
 from supabase import create_client, Client
 import os
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
+
 
 load_dotenv()
 
 app = FastAPI(title="Lead-O-Matic API")
-
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 # Conexión a Supabase
 url = os.getenv("SUPABASE_URL")
 key = os.getenv("SUPABASE_KEY")
