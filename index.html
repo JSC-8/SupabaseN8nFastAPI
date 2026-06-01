@@ -1,27 +1,160 @@
-<form id="leadForm">
-  <input type="text" id="nombre" placeholder="Nombre" required />
-  <input type="email" id="email" placeholder="Email" required />
-  <input type="text" id="empresa" placeholder="Empresa" />
-  <button type="submit">Registrar</button>
-</form>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Lead - Mundial 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-<script>
-  document.getElementById("leadForm").onsubmit = async (e) => {
-    e.preventDefault();
-    const params = new URLSearchParams({
-      nombre: document.getElementById("nombre").value,
-      email: document.getElementById("email").value,
-      empresa: document.getElementById("empresa").value,
-    });
+    body {
+      min-height: 100vh;
+      background: #0a3d1f;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.04) 59px, rgba(255,255,255,0.04) 60px),
+        repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.04) 59px, rgba(255,255,255,0.04) 60px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      font-family: 'Open Sans', sans-serif;
+    }
 
-    const response = await fetch(
-      `http://127.0.0.1:8000/nuevo-lead/?${params}`,
-      {
-        method: "POST",
-      },
-    );
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
 
-    if (response.ok) alert("¡Lead enviado!");
-    else alert("Error");
-  };
-</script>
+    .header {
+      background: #c8102e;
+      padding: 2rem 2rem 1.5rem;
+      text-align: center;
+      border-bottom: 6px solid #f5a623;
+    }
+
+    .header::before {
+      content: '⚽';
+      font-size: 48px;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .header h1 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 0 0 0.25rem;
+    }
+
+    .header p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+    }
+
+    form {
+      padding: 2rem;
+    }
+
+    form input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      color: #111;
+      background: #fafafa;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s, background 0.2s;
+      outline: none;
+    }
+
+    form input:focus {
+      border-color: #c8102e;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(200,16,46,0.12);
+    }
+
+    form input::placeholder { color: #aaa; }
+
+    form button {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      background: #c8102e;
+      color: #fff;
+      font-family: 'Oswald', sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 0.25rem;
+    }
+
+    form button:hover { background: #a50d26; }
+    form button:active { transform: scale(0.98); }
+
+    .footer {
+      background: #0a3d1f;
+      padding: 0.75rem;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="header">
+      <h1>Regístrate</h1>
+      <p>Únete a la experiencia mundialista</p>
+    </div>
+
+    <form id="leadForm">
+      <input type="text" id="nombre" placeholder="Nombre" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="text" id="empresa" placeholder="Empresa" />
+      <button type="submit">Registrar</button>
+    </form>
+
+    <div class="footer">PROYECTO DE JUAN SALAS CASTRO</div>
+  </div>
+
+  <script>
+    document.getElementById("leadForm").onsubmit = async (e) => {
+      e.preventDefault();
+      const params = new URLSearchParams({
+        nombre: document.getElementById("nombre").value,
+        email: document.getElementById("email").value,
+        empresa: document.getElementById("empresa").value,
+      });
+
+      const response = await fetch(
+        `http://127.0.0.1:8000/nuevo-lead/?${params}`,
+        { method: "POST" }
+      );
+
+      if (response.ok) alert("¡Lead enviado!");
+      else alert("Error");
+    };
+  </script>
+
+</body>
+</html>
